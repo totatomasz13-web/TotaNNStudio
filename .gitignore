@@ -10,7 +10,6 @@ venv/
 htmlcov/
 
 # Local secrets and runtime data
-.studio-token
 .env
 .env.*
 models/*.json

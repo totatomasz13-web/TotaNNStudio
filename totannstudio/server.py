@@ -1,6 +1,5 @@
 """Serwer HTTP panelu TotaNNStudio — bez zewnętrznego frameworka."""
 
-import hmac
 import json
 import os
 import threading
@@ -25,10 +24,9 @@ class StudioHTTPServer(ThreadingHTTPServer):
     request_queue_size = 32
     max_active_requests = 16
 
-    def __init__(self, address, handler, service, access_token):
+    def __init__(self, address, handler, service):
         super().__init__(address, handler)
         self.service = service
-        self.access_token = access_token
         self.training_lock = threading.Lock()
         self.request_slots = threading.BoundedSemaphore(self.max_active_requests)
 
@@ -55,7 +53,7 @@ class StudioHTTPServer(ThreadingHTTPServer):
 
 
 class StudioHandler(BaseHTTPRequestHandler):
-    server_version = "TotaNNStudio/0.1"
+    server_version = "TotaNNStudio/0.2"
 
     def log_message(self, format, *args):
         print(f"[studio] {self.address_string()} {format % args}")
@@ -83,16 +81,6 @@ class StudioHandler(BaseHTTPRequestHandler):
         body = json.dumps(payload, ensure_ascii=False, allow_nan=False).encode("utf-8")
         self._send_bytes(body, "application/json; charset=utf-8", status)
 
-    def _authorized(self):
-        expected = self.server.access_token
-        provided = self.headers.get("X-Studio-Token", "")
-        return bool(expected) and hmac.compare_digest(provided, expected)
-
-    def _require_auth(self):
-        if self._authorized():
-            return True
-        self._json({"error": "Brak dostępu do panelu"}, HTTPStatus.UNAUTHORIZED)
-        return False
 
     def _read_json(self):
         try:
@@ -132,8 +120,7 @@ class StudioHandler(BaseHTTPRequestHandler):
             self._json({"status": "ok", "engine": "tota", "engine_version": version("tota")})
             return
         if path == "/api/models":
-            if self._require_auth():
-                self._json({"models": self.server.service.list_models()})
+            self._json({"models": self.server.service.list_models()})
             return
         if path in {"/studio", "/studio/"}:
             self._serve_file(WEB_DIR, "index.html")
@@ -148,8 +135,6 @@ class StudioHandler(BaseHTTPRequestHandler):
 
     def do_POST(self):
         path = urlparse(self.path).path
-        if not self._require_auth():
-            return
         try:
             payload = self._read_json()
             if not isinstance(payload, dict):
@@ -178,14 +163,10 @@ class StudioHandler(BaseHTTPRequestHandler):
 
 
 def run(host="127.0.0.1", port=4173):
-    access_token = os.environ.get("TOTA_STUDIO_TOKEN")
-    if not access_token or len(access_token) < 16:
-        raise RuntimeError("Ustaw TOTA_STUDIO_TOKEN o długości co najmniej 16 znaków")
     server = StudioHTTPServer(
         (host, port),
         StudioHandler,
         StudioService(MODELS_DIR),
-        access_token,
     )
     print(f"TotaNNStudio: http://{host}:{port}/studio/")
     server.serve_forever()

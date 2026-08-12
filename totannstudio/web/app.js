@@ -1,33 +1,15 @@
-const state = { token: sessionStorage.getItem('totaStudioToken') || '', layers: [{ neurons: 1, activation: 'sigmoid' }], selectedModel: null };
+const state = { layers: [{ neurons: 1, activation: 'sigmoid' }], selectedModel: null };
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
 const orDataset = [{input:[0,0],target:0},{input:[0,1],target:1},{input:[1,0],target:1},{input:[1,1],target:1}];
 
 async function api(path, options = {}) {
-  const response = await fetch(path, { ...options, headers: { 'Content-Type': 'application/json', 'X-Studio-Token': state.token, ...(options.headers || {}) } });
+  const response = await fetch(path, { ...options, headers: { 'Content-Type': 'application/json', ...(options.headers || {}) } });
   const data = await response.json().catch(() => ({ error: 'Nieprawidłowa odpowiedź serwera' }));
   if (!response.ok) throw new Error(data.error || `HTTP ${response.status}`);
   return data;
 }
 
-function setUnlocked(unlocked) {
-  $('#auth-view').hidden = unlocked;
-  $('#workspace').hidden = !unlocked;
-  if (unlocked) renderLayers();
-}
-
-$('#auth-form').addEventListener('submit', async (event) => {
-  event.preventDefault();
-  state.token = $('#token-input').value;
-  try {
-    await api('/api/models');
-    sessionStorage.setItem('totaStudioToken', state.token);
-    $('#auth-error').textContent = '';
-    setUnlocked(true);
-  } catch (error) { $('#auth-error').textContent = error.message; state.token = ''; }
-});
-
-$('#lock-button').addEventListener('click', () => { sessionStorage.removeItem('totaStudioToken'); state.token = ''; setUnlocked(false); });
 
 function calculateParameters() {
   let inputs = Number($('#input-size').value) || 0;
@@ -109,4 +91,5 @@ $('#refresh-models').addEventListener('click', loadModels);
 
 $$('.nav-item').forEach(button => button.addEventListener('click', () => { $$('.nav-item').forEach(item => item.classList.remove('active')); button.classList.add('active'); const view=button.dataset.view; $('#create-view').hidden=view!=='create'; $('#models-view').hidden=view!=='models'; $('#view-title').textContent=view==='create'?'Create model':'My models'; if(view==='models') loadModels(); }));
 
-(async () => { try { const health = await fetch('/api/health').then(response => response.json()); $('#engine-version').textContent = `${health.engine} ${health.engine_version}`; } catch {} if (!state.token) return setUnlocked(false); try { await api('/api/models'); setUnlocked(true); } catch { sessionStorage.removeItem('totaStudioToken'); state.token=''; setUnlocked(false); } })();
+renderLayers();
+(async () => { try { const health = await fetch('/api/health').then(response => response.json()); $('#engine-version').textContent = `${health.engine} ${health.engine_version}`; } catch {} })();

@@ -16,13 +16,9 @@
     </aside>
 
     <main>
-      <header><div><p>LOCAL AI WORKSPACE</p><h1 id="view-title">Create model</h1></div><div class="header-actions"><span class="status"><i></i> Server online</span><button id="lock-button">Lock</button></div></header>
+      <header><div><p>LOCAL AI WORKSPACE</p><h1 id="view-title">Create model</h1></div><div class="header-actions"><span class="status"><i></i> Server online</span></div></header>
 
-      <section id="auth-view" class="auth-card">
-        <span class="auth-mark">T</span><h2>Unlock your studio</h2><p>Wpisz prywatny kod dostępu ustawiony na serwerze. Kod jest przechowywany tylko w tej karcie przeglądarki.</p><form id="auth-form"><label>Access token<input id="token-input" type="password" minlength="16" autocomplete="current-password" required placeholder="••••••••••••••••"></label><button>Open Studio →</button></form><p id="auth-error" class="error"></p>
-      </section>
-
-      <div id="workspace" hidden>
+      <div id="workspace">
         <section id="create-view" class="view">
           <div class="intro"><div><p class="eyebrow">Architecture builder</p><h2>Build a neural network.</h2><p>Skonfiguruj model, przekaż dane i uruchom prawdziwy trening przez bibliotekę <strong>tota</strong>.</p></div><span class="engine-pill" id="engine-version">tota</span></div>
 

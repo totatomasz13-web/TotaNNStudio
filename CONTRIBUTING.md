@@ -25,6 +25,6 @@ node --check totannstudio/web/app.js
 python -m compileall -q totannstudio main.py
 ```
 
-Nie dodawaj sekretów, plików `.studio-token`, datasetów użytkownika ani wytrenowanych modeli do commita.
+Nie dodawaj sekretów, datasetów użytkownika ani wytrenowanych modeli do commita.
 
 Funkcje Transformera biblioteki `tota` muszą pozostać wyraźnie oznaczone jako **BETA**.

@@ -17,14 +17,13 @@ W zgłoszeniu podaj:
 
 ## Zasady bezpiecznego wdrożenia
 
-- ustaw losowy `TOTA_STUDIO_TOKEN` o wysokiej entropii,
-- nie zapisuj tokenu w repozytorium ani obrazie kontenera,
-- pozostaw serwer na `127.0.0.1`, chyba że przed nim działa HTTPS i kontrola dostępu,
-- Quick Tunnel traktuj wyłącznie jako tymczasowy podgląd,
+- pozostaw serwer na `127.0.0.1`,
+- panel nie ma logowania; dostęp z sieci wystawiaj wyłącznie przez HTTPS i zewnętrzną kontrolę dostępu, np. Cloudflare Access,
+- nie używaj publicznego Quick Tunnel bez dodatkowego uwierzytelniania,
 - uruchamiaj Studio jako osobny użytkownik bez uprawnień roota,
 - ogranicz prawa katalogu modeli,
 - aktualizuj `tota`, PyTorch oraz system operacyjny.
 
 ## Znane ograniczenia
 
-Token aplikacyjny chroni API, ale wersja `0.1.0` nie zapewnia kont użytkowników, rotacji sesji, audytu działań ani rozproszonego limitowania żądań. Nie wystawiaj panelu jako wieloużytkownikowej usługi publicznej.
+Wersja `0.2.0` nie ma logowania, kont użytkowników, audytu działań ani rozproszonego limitowania żądań. Nie wystawiaj panelu jako niezabezpieczonej usługi publicznej.

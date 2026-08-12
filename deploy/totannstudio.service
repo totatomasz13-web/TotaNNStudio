@@ -7,7 +7,6 @@ Type=simple
 User=totannstudio
 Group=totannstudio
 WorkingDirectory=/opt/TotaNNStudio
-EnvironmentFile=/etc/totannstudio.env
 Environment=TOTA_STUDIO_HOST=127.0.0.1
 Environment=TOTA_STUDIO_PORT=4173
 Environment=TOTA_MODELS_DIR=/var/lib/totannstudio/models

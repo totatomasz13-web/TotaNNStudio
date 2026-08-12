@@ -2,7 +2,7 @@
 
 Self-hosted panel WWW do projektowania, trenowania, zapisywania i testowania małych sieci neuronowych zbudowanych za pomocą biblioteki [`tota`](https://github.com/totatomasz13-web/tota).
 
-> **Status:** wersja `0.1.0` (Alpha). Działający, zabezpieczony MVP dla klasycznych sieci `tota.Layer` / `tota.Network`.
+> **Status:** wersja `0.2.0` (Alpha). Działający, lokalny MVP dla klasycznych sieci `tota.Layer` / `tota.Network`.
 
 ## Możliwości
 
@@ -14,7 +14,7 @@ Self-hosted panel WWW do projektowania, trenowania, zapisywania i testowania ma�
 - zapis architektury, wag i biasów w lokalnym formacie JSON,
 - biblioteka zapisanych modeli oraz ponowne predykcje,
 - strona reklamowa i aplikacja dostarczane przez jeden serwer,
-- ochrona API prywatnym tokenem.
+- lokalne API dostępne bez logowania na `127.0.0.1`.
 
 ## Wymagania
 
@@ -22,25 +22,18 @@ Self-hosted panel WWW do projektowania, trenowania, zapisywania i testowania ma�
 - `tota >= 1.0.1, < 2`,
 - system obsługiwany przez PyTorch.
 
-Klasyczne `tota.Network` działa obecnie na **CPU**. Obsługa GPU/CUDA znajduje się na roadmapie i nie jest przedstawiana jako aktywna funkcja wersji `0.1.0`.
+Klasyczne `tota.Network` działa obecnie na **CPU**. Obsługa GPU/CUDA znajduje się na roadmapie i nie jest przedstawiana jako aktywna funkcja wersji `0.2.0`.
 
-## Instalacja na VPS-ie
+## Instalacja jedną komendą
 
 ```bash
-cd /opt
-git clone https://github.com/totatomasz13-web/TotaNNStudio.git
-cd TotaNNStudio
-python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install --upgrade pip
-python -m pip install .
+curl -fsSL https://raw.githubusercontent.com/totatomasz13-web/TotaNNStudio/main/install.sh | bash
 ```
 
-Wygeneruj prywatny token i uruchom serwer lokalnie:
+Uruchom:
 
 ```bash
-export TOTA_STUDIO_TOKEN="$(python -c 'import secrets; print(secrets.token_urlsafe(32))')"
-totannstudio
+$HOME/.local/bin/totannstudio
 ```
 
 Domyślny adres:
@@ -67,7 +60,7 @@ Do tymczasowego podglądu bez otwierania portu:
 cloudflared tunnel --url http://127.0.0.1:4173 --no-autoupdate
 ```
 
-Quick Tunnel nie gwarantuje stałego adresu ani dostępności. W trwałym wdrożeniu użyj nazwanego tunelu lub reverse proxy HTTPS i zarządzaj tokenem przez menedżer sekretów/systemd EnvironmentFile.
+Quick Tunnel nie gwarantuje stałego adresu ani dostępności. **Panel nie ma logowania**, dlatego nie wystawiaj go publicznie bez zewnętrznego uwierzytelniania w Cloudflare Access lub reverse proxy.
 
 ## Format własnego datasetu
 
@@ -97,9 +90,7 @@ Każdy `input` musi mieć dokładnie `input_size` wartości liczbowych. Wartośc
 - maksymalnie 16 równocześnie obsługiwanych połączeń HTTP,
 - bezwzględna wartość danych wejściowych i targetu: maksymalnie 1 000 000,
 - łączny budżet pracy: maksymalnie 2 000 000 operacji `parametry × próbki × epoki`,
-- API treningu, modeli i predykcji wymaga `X-Studio-Token`.
-
-Token nie może trafić do repozytorium. Pliki `.studio-token`, `.env` oraz modele runtime są ignorowane przez Git.
+- serwer domyślnie nasłuchuje wyłącznie na `127.0.0.1`.
 
 ## Demo terminalowe
 
@@ -137,12 +128,12 @@ TotaNNStudio/
 
 | Metoda | Endpoint | Dostęp | Opis |
 |---|---|---|---|
-| `GET` | `/api/health` | publiczny | Stan silnika i wersja `tota` |
-| `GET` | `/api/models` | token | Lista lokalnych modeli |
-| `POST` | `/api/train` | token | Trening i zapis modelu |
-| `POST` | `/api/models/{id}/predict` | token | Predykcja zapisanym modelem |
+| `GET` | `/api/health` | lokalny | Stan silnika i wersja `tota` |
+| `GET` | `/api/models` | lokalny | Lista lokalnych modeli |
+| `POST` | `/api/train` | lokalny | Trening i zapis modelu |
+| `POST` | `/api/models/{id}/predict` | lokalny | Predykcja zapisanym modelem |
 
-## Zakres wersji 0.1.0
+## Zakres wersji 0.2.0
 
 To nie jest jeszcze system produkcyjny do wielogodzinnych treningów. Brakuje trwałej kolejki zadań, wznowienia po restarcie, bazy eksperymentów, strumieniowania loss per epoka, wielu użytkowników i kontroli zasobów systemowych. Funkcje Transformera biblioteki `tota` pozostają **BETA** i nie są jeszcze podłączone do kreatora klasycznych sieci.
 

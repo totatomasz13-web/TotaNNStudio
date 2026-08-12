@@ -15,12 +15,10 @@ from totannstudio.service import StudioService
 class HTTPTests(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
-        self.token = "test-token-at-least-16-characters"
         self.server = StudioHTTPServer(
             ("127.0.0.1", 0),
             StudioHandler,
             StudioService(Path(self.temp.name)),
-            self.token,
         )
         self.thread = threading.Thread(target=self.server.serve_forever, daemon=True)
         self.thread.start()
@@ -32,9 +30,8 @@ class HTTPTests(unittest.TestCase):
         self.thread.join(timeout=2)
         self.temp.cleanup()
 
-    def get_json(self, path, token=None):
-        headers = {"X-Studio-Token": token} if token else {}
-        with urlopen(Request(self.url + path, headers=headers), timeout=5) as response:
+    def get_json(self, path):
+        with urlopen(self.url + path, timeout=5) as response:
             return response.status, json.load(response)
 
     def test_health_is_public_and_reports_tota_version(self):
@@ -43,13 +40,8 @@ class HTTPTests(unittest.TestCase):
         self.assertEqual(payload["engine"], "tota")
         self.assertRegex(payload["engine_version"], r"^\d+\.\d+\.\d+")
 
-    def test_models_rejects_missing_token(self):
-        with self.assertRaises(HTTPError) as caught:
-            self.get_json("/api/models")
-        self.assertEqual(caught.exception.code, 401)
-
-    def test_models_accepts_valid_token(self):
-        status, payload = self.get_json("/api/models", self.token)
+    def test_models_are_available_without_token(self):
+        status, payload = self.get_json("/api/models")
         self.assertEqual(status, 200)
         self.assertEqual(payload, {"models": []})
 
@@ -57,7 +49,7 @@ class HTTPTests(unittest.TestCase):
         request = Request(
             self.url + "/api/train",
             data=json.dumps([]).encode("utf-8"),
-            headers={"Content-Type": "application/json", "X-Studio-Token": self.token},
+            headers={"Content-Type": "application/json"},
             method="POST",
         )
         with self.assertRaises(HTTPError) as caught:
@@ -98,7 +90,8 @@ class HTTPTests(unittest.TestCase):
     def test_studio_assets_are_available(self):
         with urlopen(self.url + "/studio/", timeout=5) as response:
             html = response.read().decode("utf-8")
-        self.assertIn("Unlock your studio", html)
+        self.assertIn("Create model", html)
+        self.assertNotIn("Unlock your studio", html)
 
 
 if __name__ == "__main__":
