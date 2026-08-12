@@ -2,7 +2,7 @@
 
 Self-hosted panel WWW do projektowania, trenowania, zapisywania i testowania małych sieci neuronowych zbudowanych za pomocą biblioteki [`tota`](https://github.com/totatomasz13-web/tota).
 
-> **Status:** wersja `0.2.0` (Alpha). Działający, lokalny MVP dla klasycznych sieci `tota.Layer` / `tota.Network`.
+> **Status:** wersja `0.2.1` (Alpha). Działający, lokalny MVP dla klasycznych sieci `tota.Layer` / `tota.Network`.
 
 ## Możliwości
 
@@ -14,7 +14,7 @@ Self-hosted panel WWW do projektowania, trenowania, zapisywania i testowania ma�
 - zapis architektury, wag i biasów w lokalnym formacie JSON,
 - biblioteka zapisanych modeli oraz ponowne predykcje,
 - strona reklamowa i aplikacja dostarczane przez jeden serwer,
-- lokalne API dostępne bez logowania na `127.0.0.1`.
+- API bez logowania: lokalnie na `127.0.0.1` albo na wykrytym prywatnym adresie LAN.
 
 ## Wymagania
 
@@ -22,13 +22,17 @@ Self-hosted panel WWW do projektowania, trenowania, zapisywania i testowania ma�
 - `tota >= 1.0.1, < 2`,
 - system obsługiwany przez PyTorch.
 
-Klasyczne `tota.Network` działa obecnie na **CPU**. Obsługa GPU/CUDA znajduje się na roadmapie i nie jest przedstawiana jako aktywna funkcja wersji `0.2.0`.
+Klasyczne `tota.Network` działa obecnie na **CPU**. Obsługa GPU/CUDA znajduje się na roadmapie i nie jest przedstawiana jako aktywna funkcja wersji `0.2.1`.
 
 ## Instalacja jedną komendą
 
+Pełny autostart przy uruchamianiu systemu, także bez logowania użytkownika:
+
 ```bash
-curl -fsSL https://raw.githubusercontent.com/totatomasz13-web/TotaNNStudio/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/totatomasz13-web/TotaNNStudio/main/install.sh | sudo bash
 ```
+
+Bez `sudo` instalator tworzy usługę użytkownika, która uruchamia się po zalogowaniu. Instalator podaje też komendę `loginctl enable-linger`, jeśli chcesz uruchamiania bez logowania.
 
 Instalator automatycznie tworzy i uruchamia usługę systemd. Uruchomiony jako root tworzy usługę systemową startującą po restarcie VPS-a. Uruchomiony jako zwykły użytkownik tworzy usługę `systemd --user`, która startuje po zalogowaniu.
 
@@ -53,14 +57,18 @@ http://192.168.x.x:8080/studio/
 
 Na serwerze bez prywatnego adresu LAN pozostawia bezpieczny dostęp lokalny: `http://127.0.0.1:8080/studio/`.
 
-Możesz zmienić ustawienia zmiennymi:
+Możesz nadpisać host i port instalatora, np.:
 
 ```bash
-export TOTA_STUDIO_HOST=192.168.x.x
-export TOTA_STUDIO_PORT=8080
-export TOTA_MODELS_DIR=/var/lib/totannstudio/models
-export TOTA_MARKETING_DIR=/opcjonalna/ścieżka/strony
+curl -fsSL https://raw.githubusercontent.com/totatomasz13-web/TotaNNStudio/main/install.sh -o /tmp/install-totannstudio.sh
+sudo env TOTA_STUDIO_HOST=192.168.1.20 TOTA_STUDIO_PORT=8080 bash /tmp/install-totannstudio.sh
 ```
+
+Bez nadpisania instalator wiąże usługę z wykrytym prywatnym adresem LAN. Na serwerze z publicznym adresem pozostaje przy `127.0.0.1`.
+
+Jeśli port `8080` zajmuje inna aplikacja, instalator pokazuje konflikt i automatycznie wybiera pierwszy wolny port (`8081`, `8082`, …). Podczas aktualizacji rozpoznaje już działające TotaNNStudio i zachowuje jego port.
+
+Jeśli port nie może zostać zmieniony, ustaw `TOTA_STUDIO_STRICT_PORT=1`; instalator wtedy zakończy się czytelnym błędem zamiast wybierać inny port.
 
 ## Cloudflare Quick Tunnel
 
@@ -100,7 +108,7 @@ Każdy `input` musi mieć dokładnie `input_size` wartości liczbowych. Wartośc
 - maksymalnie 16 równocześnie obsługiwanych połączeń HTTP,
 - bezwzględna wartość danych wejściowych i targetu: maksymalnie 1 000 000,
 - łączny budżet pracy: maksymalnie 2 000 000 operacji `parametry × próbki × epoki`,
-- serwer domyślnie nasłuchuje wyłącznie na `127.0.0.1`.
+- ręczne uruchomienie serwera domyślnie nasłuchuje wyłącznie na `127.0.0.1`; instalator może wybrać prywatny adres LAN.
 
 ## Demo terminalowe
 
@@ -143,7 +151,7 @@ TotaNNStudio/
 | `POST` | `/api/train` | lokalny | Trening i zapis modelu |
 | `POST` | `/api/models/{id}/predict` | lokalny | Predykcja zapisanym modelem |
 
-## Zakres wersji 0.2.0
+## Zakres wersji 0.2.1
 
 To nie jest jeszcze system produkcyjny do wielogodzinnych treningów. Brakuje trwałej kolejki zadań, wznowienia po restarcie, bazy eksperymentów, strumieniowania loss per epoka, wielu użytkowników i kontroli zasobów systemowych. Funkcje Transformera biblioteki `tota` pozostają **BETA** i nie są jeszcze podłączone do kreatora klasycznych sieci.
 

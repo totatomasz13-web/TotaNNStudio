@@ -26,4 +26,4 @@ W zgłoszeniu podaj:
 
 ## Znane ograniczenia
 
-Wersja `0.2.0` nie ma logowania, kont użytkowników, audytu działań ani rozproszonego limitowania żądań. Nie wystawiaj panelu jako niezabezpieczonej usługi publicznej.
+Wersja `0.2.1` nie ma logowania, kont użytkowników, audytu działań ani rozproszonego limitowania żądań. Nie wystawiaj panelu jako niezabezpieczonej usługi publicznej.
