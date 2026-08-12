@@ -1,0 +1,22 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local secrets and runtime data
+.studio-token
+.env
+.env.*
+models/*.json
+!models/.gitkeep
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store

@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="pl" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Tota NN Studio — prywatne centrum do tworzenia, trenowania i uruchamiania sieci neuronowych na własnym serwerze.">
+  <meta name="theme-color" content="#08090b">
+  <title>Tota NN Studio — Your AI lab. On your server.</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Przejdź do treści</a>
+  <div class="ambient ambient-a" aria-hidden="true"></div>
+  <div class="ambient ambient-b" aria-hidden="true"></div>
+
+  <header class="nav-wrap">
+    <nav class="nav shell" aria-label="Główna nawigacja">
+      <a class="brand" href="#top" aria-label="Tota NN Studio — strona główna">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <span>Tota <b>NN Studio</b></span>
+      </a>
+      <div class="nav-links">
+        <a href="#create">Create</a>
+        <a href="#training">Training</a>
+        <a href="#models">Models</a>
+        <a href="#self-hosted">Self-hosted</a>
+      </div>
+      <a class="nav-cta" href="/studio/">Open Studio <span>↗</span></a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero shell" id="top">
+      <div class="hero-copy reveal">
+        <p class="micro"><span></span> Self-hosted neural network studio</p>
+        <h1>Build. Train.<br><em>Experiment.</em></h1>
+        <h2>Tota NN Studio</h2>
+        <p class="lead">Proste centrum do tworzenia, trenowania i uruchamiania sieci neuronowych — bezpośrednio na Twoim serwerze.</p>
+        <div class="actions">
+          <a class="button primary" href="/studio/">Open Studio <span>→</span></a>
+          <a class="button secondary" href="#create">View Demo <span>↓</span></a>
+        </div>
+        <div class="hero-notes"><span>Self-hosted</span><span>Private by design</span><span>Built on tota</span></div>
+      </div>
+
+      <div class="hero-product reveal" aria-label="Wizualizacja panelu Tota NN Studio">
+        <div class="window-bar"><span class="window-brand"><b></b>Tota NN Studio</span><span class="window-status"><i></i> Training</span></div>
+        <div class="app-layout">
+          <aside class="app-sidebar" aria-hidden="true">
+            <div class="side-logo">T</div><i class="active"></i><i></i><i></i><i></i><i></i>
+          </aside>
+          <div class="dashboard">
+            <div class="dashboard-top"><div><span class="label">Experiment</span><strong>PrimeNet v3</strong></div><span class="running"><i></i> Running</span></div>
+            <div class="metrics-row">
+              <div><span>Epoch</span><b class="epoch-value">68</b><small>/ 100</small></div>
+              <div><span>Accuracy</span><b>99.1%</b><small class="positive">+1.3%</small></div>
+              <div><span>Loss</span><b>0.084</b><small class="positive">−0.012</small></div>
+            </div>
+            <div class="chart-panel">
+              <div class="panel-heading"><div><strong>Training loss</strong><span>Live metrics</span></div><div class="legend"><i></i> train <i></i> validation</div></div>
+              <svg class="training-chart" viewBox="0 0 680 230" role="img" aria-label="Animowany wykres spadku funkcji loss">
+                <defs><linearGradient id="chart-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b7ff58" stop-opacity=".28"/><stop offset="1" stop-color="#b7ff58" stop-opacity="0"/></linearGradient></defs>
+                <g class="grid-lines"><path d="M40 30H650M40 82H650M40 134H650M40 186H650"/><path d="M40 30V198M190 30V198M340 30V198M490 30V198M650 30V198"/></g>
+                <path class="chart-area" d="M40 42 C90 54 110 67 145 86 S210 105 240 126 S310 135 345 154 S410 165 450 175 S530 181 575 188 S620 190 650 193 L650 208 L40 208 Z"/>
+                <path class="chart-line secondary-line" d="M40 54 C100 58 115 78 155 91 S220 116 252 126 S325 148 370 158 S460 173 510 178 S600 186 650 188"/>
+                <path class="chart-line main-line" d="M40 42 C90 54 110 67 145 86 S210 105 240 126 S310 135 345 154 S410 165 450 175 S530 181 575 188 S620 190 650 193"/>
+                <circle class="live-point" cx="650" cy="193" r="5"/>
+              </svg>
+            </div>
+            <div class="hardware-strip"><span><i class="gpu-dot"></i> CPU local</span><span>EPOCH <b>92 / 100</b></span><span>LOSS <b>0.084</b></span><span>ETA <b>08:42</b></span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="statement shell section reveal">
+      <p class="kicker">Your AI lab. On your server.</p>
+      <h2>Your hardware. Your models.<br><span>Your data.</span></h2>
+      <p class="wide-copy">Tota NN Studio pozwala zamienić własny komputer lub serwer w prywatne laboratorium AI — bez wysyłania danych do zewnętrznych usług.</p>
+      <div class="capabilities" aria-label="Obsługiwane zasoby">
+        <span>CPU</span><span>tota Network</span><span>JSON API</span><span>Own datasets</span><span>Local storage</span>
+      </div>
+    </section>
+
+    <section class="section shell split-feature" id="create">
+      <div class="section-copy reveal">
+        <p class="kicker">Create without the complexity</p>
+        <h2>Design your neural<br>network <span>visually.</span></h2>
+        <p>Buduj architekturę, zmieniaj parametry i eksperymentuj bez konieczności pisania całego kodu od zera.</p>
+        <div class="inline-points"><span>Visual architecture</span><span>Instant configuration</span><span>Code when you need it</span></div>
+      </div>
+      <div class="builder-card product-card reveal">
+        <div class="card-bar"><span>New architecture</span><button type="button">Save model</button></div>
+        <div class="builder-body">
+          <div class="network-flow">
+            <div class="node input-node"><span>Input</span><small>Shape 784</small></div><i></i>
+            <div class="node"><span>Dense</span><small>128 units</small></div><i></i>
+            <div class="node activation-node"><span>ReLU</span><small>Activation</small></div><i></i>
+            <div class="node"><span>Dense</span><small>64 units</small></div><i></i>
+            <div class="node activation-node"><span>ReLU</span><small>Activation</small></div><i></i>
+            <div class="node output-node"><span>Output</span><small>10 classes</small></div>
+          </div>
+          <div class="config-panel">
+            <div class="config-title"><span>Architecture</span><i>•••</i></div>
+            <dl><div><dt>Layers</dt><dd>5</dd></div><div><dt>Optimizer</dt><dd>Adam</dd></div><div><dt>Learning</dt><dd>0.001</dd></div><div><dt>Batch Size</dt><dd>32</dd></div><div><dt>Epochs</dt><dd>100</dd></div></dl>
+            <button type="button" class="train-button"><i></i> Start training</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section shell training-section" id="training">
+      <div class="center-copy reveal"><p class="kicker">See your model learn</p><h2>Watch every epoch.</h2><p>Uruchamiaj trening, obserwuj końcowy loss i sprawdzaj predykcje modelu. Rozbudowane metryki na żywo znajdują się na roadmapie.</p></div>
+      <div class="large-chart-card product-card reveal">
+        <div class="large-chart-top"><div><span>Loss</span><b>0.0842</b><small>Training steadily</small></div><div class="chart-controls"><button class="active">Loss</button><button>Accuracy</button><button>Output</button></div></div>
+        <svg viewBox="0 0 1100 420" class="large-chart" role="img" aria-label="Wykres loss malejącego wraz z epokami">
+          <defs><linearGradient id="big-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b7ff58" stop-opacity=".2"/><stop offset="1" stop-color="#b7ff58" stop-opacity="0"/></linearGradient></defs>
+          <g class="big-grid"><path d="M70 45H1060M70 140H1060M70 235H1060M70 330H1060"/><path d="M70 45V355M268 45V355M466 45V355M664 45V355M862 45V355M1060 45V355"/></g>
+          <g class="axis-labels"><text x="22" y="50">1.0</text><text x="22" y="145">0.7</text><text x="22" y="240">0.4</text><text x="22" y="335">0.1</text><text x="60" y="390">0</text><text x="250" y="390">20</text><text x="450" y="390">40</text><text x="646" y="390">60</text><text x="844" y="390">80</text><text x="1035" y="390">100</text></g>
+          <path class="big-area" d="M70 68 C130 80 170 108 215 135 S315 173 360 210 S450 230 505 265 S600 287 665 308 S760 320 825 333 S945 342 1060 348 L1060 355 L70 355Z"/>
+          <path class="big-line" d="M70 68 C130 80 170 108 215 135 S315 173 360 210 S450 230 505 265 S600 287 665 308 S760 320 825 333 S945 342 1060 348"/>
+          <circle cx="1060" cy="348" r="7" class="big-point"/>
+        </svg>
+        <div class="chart-footer"><span><i></i> Live</span><span>Epoch 68 / 100</span><span>12m 18s elapsed</span><span>ETA 08m 42s</span></div>
+      </div>
+    </section>
+
+    <section class="hardware-section section" id="hardware">
+      <div class="shell hardware-grid">
+        <div class="hardware-copy reveal"><p class="kicker light">Current engine · CPU</p><h2>Make your<br><span>hardware work.</span></h2><p>Klasyczne sieci Tota NN Studio wykorzystują dziś lokalny procesor. Obsługa GPU i CUDA znajduje się na roadmapie.</p><div class="secure-note"><i>✓</i><span><b>Local processing</b><small>Twoje dane nie opuszczają serwera.</small></span></div></div>
+        <div class="server-visual reveal">
+          <div class="server-top"><span>Compute node</span><span class="online"><i></i> Online</span></div>
+          <div class="gpu-name"><small>CPU ENGINE</small><strong>tota Network</strong></div>
+          <div class="gpu-load"><div class="gauge"><span>87<small>%</small></span></div><div><b>Training progress</b><small>Local execution mode</small></div></div>
+          <div class="server-stats"><div><span>Epochs</span><b>3000</b><i class="load-76"></i></div><div><span>Parameters</span><b>17</b><i class="load-68"></i></div><div><span>Models</span><b>Local</b><i class="load-83"></i></div></div>
+          <div class="server-rack"><i></i><i></i><i></i><i></i><span>••••••••••••</span><b></b><b></b></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section shell experiments-section">
+      <div class="section-copy compact reveal"><p class="kicker">Experiment freely</p><h2>Every experiment<br><span>matters.</span></h2><p>Zapisuj konfiguracje, wyniki i modele. Porównuj eksperymenty i znajdź najlepszą architekturę.</p></div>
+      <div class="experiment-stack reveal">
+        <article class="experiment-card"><span class="version">v1</span><div><small>EXPERIMENT 001</small><h3>PrimeNet v1</h3></div><div class="accuracy"><span>Accuracy</span><b>94.2%</b></div><span class="badge complete">Complete</span></article>
+        <article class="experiment-card"><span class="version">v2</span><div><small>EXPERIMENT 002</small><h3>PrimeNet v2</h3></div><div class="accuracy"><span>Accuracy</span><b>97.8%</b></div><span class="badge complete">Complete</span></article>
+        <article class="experiment-card winner"><span class="version">v3</span><div><small>EXPERIMENT 003 · BEST</small><h3>PrimeNet v3</h3></div><div class="accuracy"><span>Accuracy</span><b>99.1%</b></div><span class="badge running">Running</span></article>
+      </div>
+    </section>
+
+    <section class="section shell models-section" id="models">
+      <div class="center-copy reveal"><p class="kicker">Models, ready when you are</p><h2>One place for all<br><span>your models.</span></h2><p>Przechowuj, testuj, eksportuj i uruchamiaj swoje modele z jednego miejsca.</p></div>
+      <div class="models-window product-card reveal">
+        <div class="models-sidebar"><b>My Models</b><a class="active">All models <span>4</span></a><a>Vision <span>2</span></a><a>Classification <span>2</span></a><a>Archived <span>0</span></a><button>+ New model</button></div>
+        <div class="model-library"><div class="library-top"><span>Models</span><button>Sort: Recent⌄</button></div><div class="model-grid">
+          <article><div class="model-icon brain">◌</div><h3>PrimeNet</h3><p>Classifier · v3</p><span>99.1% accuracy</span></article>
+          <article><div class="model-icon vision">⌾</div><h3>VisionNet</h3><p>Computer vision · v8</p><span>98.4% accuracy</span></article>
+          <article><div class="model-icon number">01</div><h3>NumberNet</h3><p>MNIST · v2</p><span>97.9% accuracy</span></article>
+          <article><div class="model-icon robot">◆</div><h3>RobotVision</h3><p>Detection · v5</p><span>96.7% mAP</span></article>
+        </div></div>
+      </div>
+    </section>
+
+    <section class="section shell api-section">
+      <div class="api-card product-card reveal">
+        <div class="api-copy"><p class="kicker">Built-in API</p><h2>Your models can<br><span>do more.</span></h2><p>Udostępniaj modele innym aplikacjom za pomocą prostego API.</p><div class="api-tags"><span>REST API</span><span>JSON</span><span>Local network</span></div></div>
+        <div class="code-window"><div class="code-tabs"><span class="active">Request</span><span>Response</span><i>•••</i></div><pre><code><span class="method">POST</span> <span class="route">/api/models/primenet/predict</span>
+
+<span class="dim">X-Studio-Token:</span> ••••••••
+<span class="dim">Content-Type:</span> application/json
+
+{
+  <span class="key">"input"</span>: [<span class="string">1, 0</span>]
+}</code></pre><div class="response"><span>200 OK</span><code>{ <b>class:</b> 1, <b>output:</b> [0.984] }</code></div></div>
+      </div>
+    </section>
+
+    <section class="self-hosted section" id="self-hosted">
+      <div class="shell self-grid">
+        <div class="self-copy reveal"><p class="kicker light">Built for self-hosting</p><h2>Your AI.<br><span>Your server.</span></h2><p>Tota NN Studio działa lokalnie, w Twojej sieci, jako lekka usługa Python.</p><ul><li>No unnecessary cloud.</li><li>No complicated infrastructure.</li><li>Just your hardware.</li></ul></div>
+        <div class="deploy-visual reveal"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="deploy-core"><span class="deploy-logo">T</span><b>Tota NN Studio</b><small>localhost:4173</small><i>Running</i></div><span class="device device-a">Server</span><span class="device device-b">Python</span><span class="device device-c">CPU</span><span class="device device-d">LAN</span></div>
+      </div>
+    </section>
+
+    <section class="final-cta section shell" id="get-started">
+      <div class="cta-glow" aria-hidden="true"></div>
+      <div class="reveal"><p class="micro"><span></span> Ready to run locally</p><h2>Build something<br><em>intelligent.</em></h2><p>Zacznij eksperymentować z sieciami neuronowymi na własnym serwerze.</p><a class="button primary large" href="/studio/">Open Tota NN Studio <span>→</span></a><div class="footer-tags"><span>Self-hosted</span><span>Local models</span><span>CPU training</span><span>Open source</span></div></div>
+    </section>
+  </main>
+
+  <footer class="footer shell"><a class="brand" href="#top"><span class="brand-mark"><i></i><i></i><i></i><i></i></span><span>Tota <b>NN Studio</b></span></a><p>Private neural network experimentation.</p><span>© 2026 Tota</span></footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

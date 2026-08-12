@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#080a0d">
+  <title>Tota NN Studio</title>
+  <link rel="stylesheet" href="/studio/app.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="logo" href="/"><span>T</span><b>Tota NN Studio</b></a>
+      <nav><button class="nav-item active" data-view="create"><i>＋</i>Create model</button><button class="nav-item" data-view="models"><i>◫</i>My models</button></nav>
+      <div class="engine"><i></i><span><b>tota engine</b><small>Connected · CPU</small></span></div>
+    </aside>
+
+    <main>
+      <header><div><p>LOCAL AI WORKSPACE</p><h1 id="view-title">Create model</h1></div><div class="header-actions"><span class="status"><i></i> Server online</span><button id="lock-button">Lock</button></div></header>
+
+      <section id="auth-view" class="auth-card">
+        <span class="auth-mark">T</span><h2>Unlock your studio</h2><p>Wpisz prywatny kod dostępu ustawiony na serwerze. Kod jest przechowywany tylko w tej karcie przeglądarki.</p><form id="auth-form"><label>Access token<input id="token-input" type="password" minlength="16" autocomplete="current-password" required placeholder="••••••••••••••••"></label><button>Open Studio →</button></form><p id="auth-error" class="error"></p>
+      </section>
+
+      <div id="workspace" hidden>
+        <section id="create-view" class="view">
+          <div class="intro"><div><p class="eyebrow">Architecture builder</p><h2>Build a neural network.</h2><p>Skonfiguruj model, przekaż dane i uruchom prawdziwy trening przez bibliotekę <strong>tota</strong>.</p></div><span class="engine-pill" id="engine-version">tota</span></div>
+
+          <div class="workspace-grid">
+            <section class="panel architecture-panel">
+              <div class="panel-head"><div><span>01</span><h3>Architecture</h3></div><button id="add-layer" type="button">+ Add layer</button></div>
+              <div class="field-row"><label>Model name<input id="model-name" value="PrimeNet OR" maxlength="80"></label><label>Input size<input id="input-size" type="number" min="1" max="512" value="2"></label></div>
+              <div class="network-canvas">
+                <div class="flow-node input"><i></i><div><span>INPUT</span><b><span id="input-count">2</span> values</b></div></div>
+                <div class="connector"></div>
+                <div id="layers"></div>
+                <button type="button" class="flow-add" id="flow-add">＋</button>
+              </div>
+              <div class="summary"><span>Layers <b id="layer-count">1</b></span><span>Parameters <b id="parameter-count">3</b></span><span>Output <b>Binary</b></span></div>
+            </section>
+
+            <section class="panel config-panel">
+              <div class="panel-head"><div><span>02</span><h3>Training</h3></div></div>
+              <label>Dataset<select id="dataset-select"><option value="or">Built-in · Logic OR</option><option value="custom">Custom JSON</option></select></label>
+              <div id="dataset-preview" class="dataset-preview"><div><code>[0, 0]</code><span>→</span><b>0</b></div><div><code>[0, 1]</code><span>→</span><b>1</b></div><div><code>[1, 0]</code><span>→</span><b>1</b></div><div><code>[1, 1]</code><span>→</span><b>1</b></div></div>
+              <label id="custom-dataset-wrap" hidden>Dataset JSON<textarea id="custom-dataset" rows="8">[
+  {"input":[0,0],"target":0},
+  {"input":[0,1],"target":1},
+  {"input":[1,0],"target":1},
+  {"input":[1,1],"target":1}
+]</textarea></label>
+              <div class="field-row"><label>Learning rate<input id="learning-rate" type="number" min="0.000001" max="1" step="0.001" value="0.2"></label><label>Epochs<input id="epochs" type="number" min="1" max="5000" value="3000"></label></div>
+              <button id="train-button" class="primary-action"><span>▶</span> Train with tota</button>
+              <p class="limit-note">Limits: 5000 epochs · 1000 samples · one job at a time</p>
+            </section>
+          </div>
+
+          <section id="result-panel" class="panel result-panel" hidden>
+            <div class="panel-head"><div><span>03</span><h3>Training result</h3></div><span class="complete">● Complete</span></div>
+            <div class="result-grid"><div><span>ENGINE</span><b id="result-engine">tota</b></div><div><span>MODEL</span><b id="result-model">—</b></div><div><span>PARAMETERS</span><b id="result-params">—</b></div><div><span>RESULT</span><b id="result-status">Saved</b></div></div>
+            <p id="training-report" class="report"></p><div id="prediction-results" class="predictions"></div>
+          </section>
+          <p id="global-error" class="error global-error"></p>
+        </section>
+
+        <section id="models-view" class="view" hidden>
+          <div class="intro"><div><p class="eyebrow">Local model library</p><h2>Your trained models.</h2><p>Modele są przechowywane lokalnie na VPS-ie razem z architekturą, wagami i biasami.</p></div><button id="refresh-models">Refresh</button></div>
+          <div id="models-grid" class="models-grid"></div>
+          <section id="predict-panel" class="panel predict-panel" hidden><div><p class="eyebrow">Prediction</p><h3 id="predict-title">Test model</h3></div><form id="predict-form"><label>Input values<input id="predict-input" placeholder="1, 0" required></label><button>Run prediction →</button></form><div id="predict-result"></div></section>
+        </section>
+      </div>
+    </main>
+  </div>
+  <script src="/studio/app.js"></script>
+</body>
+</html>
