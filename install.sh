@@ -81,7 +81,8 @@ if [ "$(id -u)" -eq 0 ] && command -v systemctl >/dev/null; then
     echo "WantedBy=multi-user.target"
   } > /etc/systemd/system/totannstudio.service
   systemctl daemon-reload
-  systemctl enable --now totannstudio.service
+  systemctl enable totannstudio.service
+  systemctl restart totannstudio.service
   AUTOSTART_MESSAGE="Autostart po restarcie systemu włączony."
 elif command -v systemctl >/dev/null && systemctl --user show-environment >/dev/null 2>&1; then
   mkdir -p "$SYSTEMD_USER_DIR"
@@ -104,7 +105,8 @@ elif command -v systemctl >/dev/null && systemctl --user show-environment >/dev/
     echo "WantedBy=default.target"
   } > "$SYSTEMD_USER_DIR/totannstudio.service"
   systemctl --user daemon-reload
-  systemctl --user enable --now totannstudio.service
+  systemctl --user enable totannstudio.service
+  systemctl --user restart totannstudio.service
   AUTOSTART_MESSAGE="Autostart po zalogowaniu włączony. Dla startu bez logowania administrator może wykonać: sudo loginctl enable-linger $USER"
 else
   AUTOSTART_MESSAGE="Brak działającego systemd użytkownika — uruchamiaj ręcznie: $BIN_DIR/totannstudio"
