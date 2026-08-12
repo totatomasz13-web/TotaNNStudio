@@ -13,6 +13,12 @@ from totannstudio.service import StudioService
 
 
 class HTTPTests(unittest.TestCase):
+    def test_default_server_port_is_8080(self):
+        from inspect import signature
+        from totannstudio.server import run
+
+        self.assertEqual(signature(run).parameters["port"].default, 8080)
+
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.server = StudioHTTPServer(

@@ -162,7 +162,7 @@ class StudioHandler(BaseHTTPRequestHandler):
             self._json({"error": "Wewnętrzny błąd serwera"}, HTTPStatus.INTERNAL_SERVER_ERROR)
 
 
-def run(host="127.0.0.1", port=4173):
+def run(host="127.0.0.1", port=8080):
     server = StudioHTTPServer(
         (host, port),
         StudioHandler,
@@ -175,7 +175,7 @@ def run(host="127.0.0.1", port=4173):
 def main():
     run(
         host=os.environ.get("TOTA_STUDIO_HOST", "127.0.0.1"),
-        port=int(os.environ.get("TOTA_STUDIO_PORT", "4173")),
+        port=int(os.environ.get("TOTA_STUDIO_PORT", "8080")),
     )
 
 

@@ -30,24 +30,34 @@ Klasyczne `tota.Network` działa obecnie na **CPU**. Obsługa GPU/CUDA znajduje 
 curl -fsSL https://raw.githubusercontent.com/totatomasz13-web/TotaNNStudio/main/install.sh | bash
 ```
 
-Uruchom:
+Instalator automatycznie tworzy i uruchamia usługę systemd. Uruchomiony jako root tworzy usługę systemową startującą po restarcie VPS-a. Uruchomiony jako zwykły użytkownik tworzy usługę `systemd --user`, która startuje po zalogowaniu.
+
+Dla zwykłego użytkownika opcjonalny start bez logowania może włączyć administrator:
 
 ```bash
-$HOME/.local/bin/totannstudio
+sudo loginctl enable-linger "$USER"
 ```
 
-Domyślny adres:
+Sterowanie usługą:
+
+```bash
+systemctl status totannstudio       # instalacja jako root
+systemctl --user status totannstudio # zwykły użytkownik
+```
+
+Instalator używa portu `8080`. Jeśli wykryje prywatny adres LAN (`192.168.x.x`, `10.x.x.x` lub `172.16-31.x.x`), udostępnia panel innym komputerom w tej samej sieci:
 
 ```text
-http://127.0.0.1:4173/
-http://127.0.0.1:4173/studio/
+http://192.168.x.x:8080/studio/
 ```
+
+Na serwerze bez prywatnego adresu LAN pozostawia bezpieczny dostęp lokalny: `http://127.0.0.1:8080/studio/`.
 
 Możesz zmienić ustawienia zmiennymi:
 
 ```bash
-export TOTA_STUDIO_HOST=127.0.0.1
-export TOTA_STUDIO_PORT=4173
+export TOTA_STUDIO_HOST=192.168.x.x
+export TOTA_STUDIO_PORT=8080
 export TOTA_MODELS_DIR=/var/lib/totannstudio/models
 export TOTA_MARKETING_DIR=/opcjonalna/ścieżka/strony
 ```
@@ -57,7 +67,7 @@ export TOTA_MARKETING_DIR=/opcjonalna/ścieżka/strony
 Do tymczasowego podglądu bez otwierania portu:
 
 ```bash
-cloudflared tunnel --url http://127.0.0.1:4173 --no-autoupdate
+cloudflared tunnel --url http://127.0.0.1:8080 --no-autoupdate
 ```
 
 Quick Tunnel nie gwarantuje stałego adresu ani dostępności. **Panel nie ma logowania**, dlatego nie wystawiaj go publicznie bez zewnętrznego uwierzytelniania w Cloudflare Access lub reverse proxy.
